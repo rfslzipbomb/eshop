@@ -1,0 +1,15 @@
+from flask import render_template
+from . import public_bp 
+
+@public_bp.route('/')
+def index():
+    return render_template('public/index.html')
+
+@public_bp.route('/tienda')
+def tienda():
+    return render_template('public/tienda.html')
+
+@public_bp.route('/contacto')
+def contacto():
+    return render_template('public/contacto.html')
+
