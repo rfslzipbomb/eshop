@@ -5,12 +5,16 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 
 class Usuario(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    __tablename__ = 'usuarios'
+
+    usuario_id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), nullable=False, unique=True)
     password = db.Column(db.String(100), nullable=False)
     fecha_registro = db.Column(db.DateTime, default=datetime.utcnow)
     rol = db.Column(db.String(20), default='usuario')  # Campo para el rol del usuario
+
+    pedidos = db.relationship('Pedido', backref='cliente', lazy=True, foreign_keys='Pedido.usuario_id')
 
     def set_password(self, password):
         self.password = generate_password_hash(password)
