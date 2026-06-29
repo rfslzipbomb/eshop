@@ -1,8 +1,2 @@
-from flask import Flask
-
-app = Flask(__name__)
-@app.route('/')
-def hello_world():
-    return '¡Bienvenidos a mi e-commerce!'
-
-if __name__ == '__main__':    app.run(debug=True)
+# This file is kept for additional app configurations if needed
+# The main app is created in __init__.py using the factory pattern

@@ -8,10 +8,10 @@ load_dotenv()
 # Definir la clase Config que contendrá la configuración de la aplicación
 class Config:
     SECRET_KEY = os.getenv('SECRET_KEY')
-    # Configurar la URI de la base de datos utilizando las variables de entorno definidas en el archivo .env
-    SQLALCHEMY_DATABASE_URI = ( 
-        f"mysql+pymysql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}/{os.getenv('DB_NAME')}"
-    )
+    # Construir ruta absoluta para la base de datos SQLite por defecto
+    BASE_DIR = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+    default_sqlite = f"sqlite:///{os.path.join(BASE_DIR, 'eshop.db')}"
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', default_sqlite)
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
