@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard - e-Shop{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h2>Panel de Administración</h2>
+        <p class="text-muted">Gestiona el inventario, usuarios y ventas de la tienda.</p>
+    </div>
+</div>
+
+<ul class="nav nav-tabs" id="adminTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="productos-tab" data-bs-toggle="tab" data-bs-target="#productos" type="button" role="tab">Productos</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="categorias-tab" data-bs-toggle="tab" data-bs-target="#categorias" type="button" role="tab">Categorías</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="clientes-tab" data-bs-toggle="tab" data-bs-target="#clientes" type="button" role="tab">Clientes</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pedidos-tab" data-bs-toggle="tab" data-bs-target="#pedidos" type="button" role="tab">Pedidos</button>
+    </li>
+</ul>
+
+<div class="tab-content" id="adminTabsContent">
+
+    <div class="tab-pane fade show active p-3 border border-top-0 rounded-bottom bg-white" id="productos" role="tabpanel">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4>Gestión de Productos</h4>
+            <a href="{{ url_for('admin.crear_producto') }}" class="btn btn-success">+ Añadir Producto</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Categoría</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for producto in productos %}
+                    <tr>
+                        <td>{{ producto.id }}</td>
+                        <td>{{ producto.nombre }}</td>
+                        <td>{{ producto.categoria.nombre if producto.categoria else 'Sin categoría' }}</td>
+                        <td>${{ producto.precio }}</td>
+                        <td>{{ producto.stock }}</td>
+                        <td>
+                            {% if producto.imagen %}
+                                <img src="{{ url_for('static', filename=producto.imagen_url) }}" alt="{{ producto.nombre }}" class="img-thumbnail me-2" style="max-height: 48px;">
+                            {% endif %}
+                            <a href="{{ url_for('admin.editar_producto', id=producto.id) }}" class="btn btn-sm btn-primary">Editar</a>
+                            
+                            <form action="{{ url_for('admin.eliminar_producto', id=producto.id) }}" method="POST" class="d-inline" onsubmit="return confirm('¿Seguro que deseas eliminar este producto?');">
+                                <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="6" class="text-center">No hay productos registrados.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="tab-pane fade p-3 border border-top-0 rounded-bottom bg-white" id="categorias" role="tabpanel">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4>Gestión de Categorías</h4>
+            <a href="{{ url_for('admin.crear_categoria') }}" class="btn btn-success">+ Añadir Categoría</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for categoria in categorias %}
+                    <tr>
+                        <td>{{ categoria.id }}</td>
+                        <td>{{ categoria.nombre }}</td>
+                        <td>
+                            <a href="{{ url_for('admin.editar_categoria', id=categoria.id) }}" class="btn btn-sm btn-primary">Editar</a>
+                            <form action="{{ url_for('admin.eliminar_categoria', id=categoria.id) }}" method="POST" class="d-inline" onsubmit="return confirm('¿Eliminar categoría? Los productos asociados podrían verse afectados.');">
+                                <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="3" class="text-center">No hay categorías registradas.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="tab-pane fade p-3 border border-top-0 rounded-bottom bg-white" id="clientes" role="tabpanel">
+        <h4 class="mb-3">Directorio de Clientes</h4>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cliente in clientes %}
+                    <tr>
+                        <td>{{ cliente.id }}</td>
+                        <td>{{ cliente.nombre }}</td>
+                        <td>{{ cliente.email }}</td>
+                        <td>
+                            {% if cliente.activo %}
+                                <span class="badge bg-success">Activo</span>
+                            {% else %}
+                                <span class="badge bg-danger">Inactivo</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <form action="{{ url_for('admin.toggle_estado_cliente', id=cliente.id) }}" method="POST" class="d-inline">
+                                {% if cliente.activo %}
+                                    <button type="submit" class="btn btn-sm btn-warning">Desactivar</button>
+                                {% else %}
+                                    <button type="submit" class="btn btn-sm btn-success">Activar</button>
+                                {% endif %}
+                            </form>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="5" class="text-center">No hay clientes registrados.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="tab-pane fade p-3 border border-top-0 rounded-bottom bg-white" id="pedidos" role="tabpanel">
+        <h4 class="mb-3">Historial de Pedidos</h4>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID Pedido</th>
+                        <th>Cliente</th>
+                        <th>Fecha</th>
+                        <th>Total</th>
+                        <th>Estado Actual</th>
+                        <th>Actualizar Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pedido in pedidos %}
+                    <tr>
+                        <td>#{{ pedido.id }}</td>
+                        <td>{{ pedido.cliente.nombre if pedido.cliente else 'Sin cliente' }}</td>
+                        <td>{{ pedido.fecha.strftime('%d/%m/%Y %H:%M') }}</td>
+                        <td>${{ pedido.total }}</td>
+                        <td>
+                            {% set estado = pedido.estado|lower %}
+                            {% if estado == 'pendiente' %}
+                                <span class="badge bg-warning text-dark">Pendiente</span>
+                            {% elif estado == 'enviado' %}
+                                <span class="badge bg-info text-dark">Enviado</span>
+                            {% elif estado == 'entregado' %}
+                                <span class="badge bg-success">Entregado</span>
+                            {% elif estado == 'cancelado' %}
+                                <span class="badge bg-danger">Cancelado</span>
+                            {% else %}
+                                <span class="badge bg-secondary">{{ pedido.estado }}</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <form action="{{ url_for('admin.actualizar_estado_pedido', id=pedido.id) }}" method="POST" class="d-flex align-items-center">
+                                <select name="nuevo_estado" class="form-select form-select-sm me-2" required>
+                                    <option value="" disabled selected>Cambiar a...</option>
+                                    <option value="Pendiente">Pendiente</option>
+                                    <option value="Enviado">Enviado</option>
+                                    <option value="Entregado">Entregado</option>
+                                    <option value="Cancelado">Cancelado</option>
+                                </select>
+                                <button type="submit" class="btn btn-sm btn-secondary">Guardar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="6" class="text-center">No hay pedidos registrados.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

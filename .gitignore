@@ -1,0 +1,24 @@
+# Variables de entorno
+.env
+
+# Caché de Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Entornos virtuales
+venv/
+env/
+.venv/
+env.bak/
+venv.bak/
+
+# Archivos de medios / Subidas de productos
+static/img/
+
+
+# Base de datos local (Flask / SQLite)
+instance/
+*.db
+*.sqlite
+*.sqlite3
