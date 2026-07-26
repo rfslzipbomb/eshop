@@ -30,9 +30,6 @@ def create_app():
     def load_user(user_id):
         return Usuario.query.get(int(user_id))
 
-    with app.app_context():
-        db.create_all()
-
     from app.blueprints.public import public_bp
     from app.blueprints.auth import auth_bp
     from app.blueprints.admin import admin_bp
