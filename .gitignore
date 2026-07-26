@@ -14,7 +14,7 @@ env.bak/
 venv.bak/
 
 # Archivos de medios / Subidas de productos
-static/img/
+# static/img/
 
 
 # Base de datos local (Flask / SQLite)
