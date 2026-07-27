@@ -26,6 +26,12 @@ def create_app():
 
     from app.models import Categoria, DetallePedido, Pedido, Producto, Usuario
 
+    try:
+        with app.app_context():
+            db.create_all()
+    except Exception:
+        pass
+
     @login_manager.user_loader
     def load_user(user_id):
         return Usuario.query.get(int(user_id))

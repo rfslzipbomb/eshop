@@ -105,6 +105,33 @@ def agregar_carrito(id):
     return redirect(url_for('public.carrito'))
 
 
+@public_bp.route('/carrito/actualizar/<int:id>', methods=['POST'])
+def actualizar_carrito(id):
+    carrito = session.get('carrito', {})
+    producto = Producto.query.get(id)
+
+    if not producto:
+        flash('Producto no encontrado.', 'warning')
+        return redirect(url_for('public.carrito'))
+
+    cantidad = request.form.get('cantidad', type=int)
+
+    if cantidad is None:
+        cantidad = carrito.get(str(id), 0)
+
+    if cantidad <= 0:
+        carrito.pop(str(id), None)
+        session['carrito'] = carrito
+        flash('Producto eliminado del carrito.', 'info')
+        return redirect(url_for('public.carrito'))
+
+    cantidad = min(cantidad, producto.stock)
+    carrito[str(id)] = cantidad
+    session['carrito'] = carrito
+    flash(f'Cantidad actualizada para "{producto.nombre}".', 'success')
+    return redirect(url_for('public.carrito'))
+
+
 @public_bp.route('/carrito/eliminar/<int:id>')
 def eliminar_carrito(id):
     carrito = session.get('carrito', {})
