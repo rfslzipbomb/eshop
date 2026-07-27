@@ -42,6 +42,52 @@ body {
     color: var(--siz-rosa-oscuro) !important;
 }
 
+.cart-nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.5rem 0.8rem;
+    border-radius: 999px;
+    transition: all 0.3s ease;
+}
+
+.cart-nav-link-active {
+    background-color: rgba(232, 165, 184, 0.16);
+    color: var(--siz-rosa-oscuro) !important;
+    box-shadow: inset 0 0 0 1px rgba(196, 123, 144, 0.25);
+}
+
+.cart-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.4rem;
+    height: 1.4rem;
+    padding: 0 0.35rem;
+    border-radius: 999px;
+    background-color: var(--siz-rosa-oscuro);
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.cart-nav-link-active .cart-badge {
+    background-color: #ffffff;
+    color: var(--siz-rosa-oscuro);
+    box-shadow: 0 0 0 2px rgba(232, 165, 184, 0.25);
+    animation: cartPulse 1.2s infinite;
+}
+
+@keyframes cartPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.08);
+    }
+}
+
 /* ===================================================
    BOTONES
    =================================================== */

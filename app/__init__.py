@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask
+from flask import Flask, session
 from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
@@ -33,6 +33,17 @@ def create_app():
     from app.blueprints.public import public_bp
     from app.blueprints.auth import auth_bp
     from app.blueprints.admin import admin_bp
+
+    @app.context_processor
+    def inject_cart_context():
+        carrito = session.get('carrito', {})
+        cart_items_count = sum(
+            cantidad for cantidad in carrito.values() if isinstance(cantidad, int)
+        )
+        return {
+            'cart_items_count': cart_items_count,
+            'has_cart_items': cart_items_count > 0,
+        }
 
     app.register_blueprint(public_bp)
     app.register_blueprint(auth_bp, url_prefix='/auth')
