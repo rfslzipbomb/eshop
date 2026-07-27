@@ -175,3 +175,26 @@ a:hover {
     color: var(--siz-rosa-oscuro);
     font-weight: 600;
 }
+
+/* ===================================================
+   CARRITO DE COMPRAS - NAVBAR
+   =================================================== */
+.cart-badge {
+    background-color: var(--siz-rosa-oscuro); /* Destaca sobre el fondo blanco */
+    color: #ffffff;
+    font-size: 0.75rem; /* Más pequeño que el texto normal */
+    font-weight: 700;
+    padding: 0.25em 0.65em; /* Crea la forma de pastilla */
+    border-radius: 50rem; /* Bordes completamente redondeados */
+    margin-left: 8px; /* Separación de la palabra "Carrito" */
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1;
+    box-shadow: 0 2px 4px rgba(196, 123, 144, 0.3); /* Sombra suave usando el rosa oscuro */
+}
+
+/* Efecto cuando el carrito tiene items (opcional, ya tienes la clase preparada en el HTML) */
+.cart-nav-link-active {
+    font-weight: 600;
+    color: var(--siz-rosa-oscuro) !important;
+}
