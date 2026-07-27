@@ -25,6 +25,7 @@
             <div class="collapse navbar-collapse" id="navbarSiz">
                 <div class="navbar-nav ms-auto align-items-center">
                     <a class="nav-link" href="{{ url_for('public.tienda') }}">Tienda</a>
+                    <a class="nav-link" href="{{ url_for('public.acerca_de') }}">Acerca de</a>
 
                     <a class="nav-link cart-nav-link{% if has_cart_items %} cart-nav-link-active{% endif %} ms-lg-2" href="{{ url_for('public.carrito') }}">
                         <i class="bi bi-cart3 me-1"></i>
@@ -78,6 +79,7 @@
         <!-- Aquí va el contenido de las páginas secundarias -->
         {% endblock %}
     </div>
+
     <!-- ===================================================
          FOOTER SIZ
          =================================================== -->
@@ -96,6 +98,7 @@
                     <ul class="list-unstyled">
                         <li><a href="{{ url_for('public.home') }}" class="footer-link">Inicio</a></li>
                         <li><a href="{{ url_for('public.tienda') }}" class="footer-link">Tienda</a></li>
+                        <li><a href="{{ url_for('public.acerca_de') }}" class="footer-link">Acerca de</a></li>
                         {% if not current_user.is_authenticated %}
                             <li><a href="{{ url_for('auth.login') }}" class="footer-link">Iniciar Sesión</a></li>
                         {% endif %}

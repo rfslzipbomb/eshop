@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, flash, request, session
+from flask import render_template, redirect, url_for, flash, request, session, abort
 from flask_login import login_required, current_user
 from app import db
 from app.models import Producto, Categoria, Pedido, DetallePedido
@@ -234,3 +234,9 @@ def mis_pedidos():
         usuario_id=current_user.id
     ).order_by(Pedido.fecha.desc()).all()
     return render_template('public/mis_pedidos.html', pedidos=pedidos)
+
+
+# ── ACERCA DE ─────────────────────────────────────────────────────
+@public_bp.route('/acerca-de')
+def acerca_de():
+    return render_template('public/acerca_de.html')
