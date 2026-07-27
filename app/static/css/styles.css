@@ -1,0 +1,138 @@
+/* ===================================================
+   ESTILOS GENERALES - SIZ
+   =================================================== */
+:root {
+    --siz-rosa-principal: #e8a5b8;
+    --siz-rosa-oscuro: #c47b90;
+    --siz-fondo: #fffafb;
+    --siz-texto: #2b2b2b;
+    --siz-gris-suave: #f8f9fa;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif !important;
+    background-color: var(--siz-fondo) !important;
+    color: var(--siz-texto) !important;
+}
+
+/* ===================================================
+   NAVBAR / ENCABEZADO
+   =================================================== */
+.navbar-siz {
+    background-color: #ffffff !important;
+    border-bottom: 2px solid var(--siz-rosa-principal);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.siz-brand {
+    font-family: 'Playfair Display', serif !important;
+    font-size: 1.8rem !important;
+    font-weight: 700 !important;
+    color: var(--siz-rosa-oscuro) !important;
+    letter-spacing: 2px;
+}
+
+.navbar-siz .nav-link {
+    color: var(--siz-texto) !important;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.navbar-siz .nav-link:hover {
+    color: var(--siz-rosa-oscuro) !important;
+}
+
+/* ===================================================
+   BOTONES
+   =================================================== */
+/* Botones primarios (Azul de Bootstrap pasa a Rosa SIZ) */
+.btn-primary {
+    background-color: var(--siz-rosa-principal) !important;
+    border-color: var(--siz-rosa-principal) !important;
+    color: #ffffff !important;
+    border-radius: 25px !important;
+    font-weight: 600 !important;
+    padding: 8px 22px !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+    background-color: var(--siz-rosa-oscuro) !important;
+    border-color: var(--siz-rosa-oscuro) !important;
+    transform: translateY(-1px);
+}
+
+/* Botones secundarios u opcionales */
+.btn-outline-primary {
+    color: var(--siz-rosa-oscuro) !important;
+    border-color: var(--siz-rosa-principal) !important;
+    border-radius: 25px !important;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--siz-rosa-principal) !important;
+    color: #ffffff !important;
+}
+
+/* ===================================================
+   TARJETAS Y PRODUCTOS
+   =================================================== */
+.card {
+    border: none !important;
+    border-radius: 15px !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05) !important;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1) !important;
+}
+
+.card-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+
+/* ===================================================
+   PRECIOS Y DETALLES DE PRODUCTO
+   =================================================== */
+.text-primary, h3.text-primary, h4.text-primary {
+    color: var(--siz-rosa-oscuro) !important;
+    font-weight: 700;
+}
+
+/* Etiquetas/Badges de categorías */
+.badge, .bg-secondary, .bg-primary {
+    background-color: var(--siz-rosa-principal) !important;
+    color: white !important;
+    border-radius: 12px !important;
+    font-weight: 500;
+}
+
+/* ===================================================
+   BANNER DE INICIO (HERO)
+   =================================================== */
+.jumbotron, .bg-dark.text-white, .p-5.bg-dark {
+    background-color: var(--siz-rosa-principal) !important;
+    color: #ffffff !important;
+    border-radius: 20px !important;
+}
+
+/* ===================================================
+   MIGRADE DE PAN / BREADCRUMBS Y LINKS
+   =================================================== */
+a {
+    color: var(--siz-rosa-oscuro);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--siz-rosa-principal);
+}
+
+.breadcrumb-item.active {
+    color: var(--siz-rosa-oscuro);
+    font-weight: 600;
+}

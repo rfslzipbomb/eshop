@@ -1,52 +1,60 @@
 {% extends 'base.html' %}
-{% block title %}Inicio – e-Shop{% endblock %}
+{% block title %}Inicio – SIZ{% endblock %}
 
 {% block content %}
-<!-- Hero -->
-<div class="p-5 mb-4 bg-dark text-white rounded-3">
-  <div class="container-fluid py-3">
-    <h1 class="display-5 fw-bold">Bienvenido a e-Shop</h1>
-    <p class="col-md-8 fs-4">Encuentra los mejores productos al mejor precio.</p>
-    <a href="{{ url_for('public.tienda') }}" class="btn btn-primary btn-lg">
-      Ver tienda
+<!-- Hero / Banner Principal SIZ -->
+<div class="p-5 mb-4 text-white rounded-4 shadow-sm" style="background: linear-gradient(135deg, #e8a5b8 0%, #c47b90 100%);">
+  <div class="container-fluid py-3 text-center text-md-start">
+    <h1 class="display-5 fw-bold" style="font-family: 'Playfair Display', serif;">Bienvenido a SIZ</h1>
+    <p class="col-md-8 fs-4 opacity-90">Encuentra prendas y accesorios exclusivos con el mejor estilo.</p>
+    <a href="{{ url_for('public.tienda') }}" class="btn btn-light btn-lg text-dark fw-bold px-4 rounded-pill shadow-sm" style="color: #c47b90 !important;">
+      Ver tienda <i class="bi bi-arrow-right ms-1"></i>
     </a>
   </div>
 </div>
 
 <!-- Categorías -->
-<h4 class="mb-3">Categorías</h4>
+<h4 class="mb-3 fw-bold" style="font-family: 'Playfair Display', serif; color: #2b2b2b;">Categorías</h4>
 <div class="row g-2 mb-4">
   {% for cat in categorias %}
   <div class="col-auto">
     <a href="{{ url_for('public.tienda', categoria=cat.id) }}"
-       class="btn btn-outline-secondary">
+       class="btn btn-outline-primary rounded-pill px-3">
       {{ cat.nombre }}
     </a>
   </div>
+  {% else %}
+  <p class="text-muted small">No hay categorías disponibles.</p>
   {% endfor %}
 </div>
 
 <!-- Productos destacados -->
-<h4 class="mb-3">Productos destacados</h4>
+<h4 class="mb-3 fw-bold" style="font-family: 'Playfair Display', serif; color: #2b2b2b;">Productos destacados</h4>
 <div class="row row-cols-1 row-cols-md-4 g-4">
   {% for p in productos %}
   <div class="col">
-    <div class="card h-100 shadow-sm">
+    <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
       {% if p.imagen %}
         <img src="{{ url_for('static', filename='img/' + p.imagen) }}"
-             class="card-img-top" style="height:180px; object-fit:cover;">
+             class="card-img-top" style="height:240px; object-fit:cover;">
       {% else %}
-        <div class="bg-secondary text-white text-center py-5">Sin imagen</div>
+        <div class="bg-light text-muted text-center py-5" style="height:240px; display: flex; align-items: center; justify-content: center;">Sin imagen</div>
       {% endif %}
-      <div class="card-body">
-        <h6 class="card-title">{{ p.nombre }}</h6>
-        <p class="text-primary fw-bold">${{ "%.2f"|format(p.precio) }}</p>
+      <div class="card-body d-flex flex-column justify-content-between p-3">
+        <div>
+          <h6 class="card-title fw-semibold text-truncate mb-1">{{ p.nombre }}</h6>
+          <p class="fw-bold fs-5 mb-0" style="color: #c47b90;">${{ "%.2f"|format(p.precio) }}</p>
+        </div>
       </div>
-      <div class="card-footer d-grid">
+      <div class="card-footer bg-transparent border-0 p-3 pt-0 d-grid">
         <a href="{{ url_for('public.detalle_producto', id=p.id) }}"
-           class="btn btn-sm btn-outline-primary">Ver producto</a>
+           class="btn btn-primary rounded-pill fw-semibold">Ver producto</a>
       </div>
     </div>
+  </div>
+  {% else %}
+  <div class="col-12 text-center py-4 text-muted">
+    <p>No hay productos destacados para mostrar en este momento.</p>
   </div>
   {% endfor %}
 </div>
