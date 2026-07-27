@@ -5,9 +5,9 @@
 <div class="row">
   <!-- Resumen del pedido -->
   <div class="col-md-7">
-    <h4 class="mb-3">Resumen del pedido</h4>
-    <table class="table table-sm">
-      <thead><tr><th>Producto</th><th>Cant.</th><th>Subtotal</th></tr></thead>
+    <h4 class="mb-3 text-primary">Resumen del pedido</h4>
+    <table class="table table-sm align-middle">
+      <thead class="table-light"><tr><th>Producto</th><th>Cant.</th><th>Subtotal</th></tr></thead>
       <tbody>
         {% for item in items %}
         <tr>
@@ -18,7 +18,7 @@
         {% endfor %}
       </tbody>
       <tfoot>
-        <tr class="fw-bold">
+        <tr class="fw-bold text-primary table-secondary">
           <td colspan="2" class="text-end">Total:</td>
           <td>${{ "%.2f"|format(total) }}</td>
         </tr>
@@ -28,21 +28,23 @@
 
   <!-- Formulario de entrega -->
   <div class="col-md-5">
-    <div class="card shadow-sm">
+    <!-- Aplicará el estilo automático de .card de tu CSS -->
+    <div class="card">
       <div class="card-body">
-        <h4 class="card-title mb-3">Datos de entrega</h4>
+        <h4 class="card-title mb-3 text-primary">Datos de entrega</h4>
         <form method="POST">
           <div class="mb-3">
-            <label class="form-label">Dirección de entrega *</label>
-            <textarea name="direccion" class="form-control"
+            <label class="form-label fw-bold">Dirección de entrega *</label>
+            <textarea name="direccion" class="form-control bg-light border-0"
                       rows="3" required></textarea>
           </div>
           <div class="mb-3">
-            <label class="form-label">Notas adicionales</label>
-            <textarea name="notas" class="form-control" rows="2"></textarea>
+            <label class="form-label fw-bold">Notas adicionales</label>
+            <textarea name="notas" class="form-control bg-light border-0" rows="2"></textarea>
           </div>
           <div class="d-grid">
-            <button type="submit" class="btn btn-success btn-lg">
+            <!-- Botón cambiado a btn-primary -->
+            <button type="submit" class="btn btn-primary btn-lg mt-3">
               ✔ Confirmar pedido
             </button>
           </div>

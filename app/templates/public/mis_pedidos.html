@@ -5,7 +5,7 @@
 
 <!-- Encabezado -->
 <div class="d-flex justify-content-between align-items-center mb-4">
-  <h3 class="mb-0">📦 Mis pedidos</h3>
+  <h3 class="mb-0 text-primary">📦 Mis pedidos</h3>
   <a href="{{ url_for('public.tienda') }}" class="btn btn-outline-primary btn-sm">
     Seguir comprando
   </a>
@@ -14,13 +14,13 @@
 {% if pedidos %}
 
   {% for pedido in pedidos %}
-  <div class="card mb-4 shadow-sm">
+  <!-- La clase .card ya está estilizada en tu CSS -->
+  <div class="card mb-4">
 
     <!-- Cabecera del pedido -->
-    <div class="card-header d-flex justify-content-between align-items-center">
-
+    <div class="card-header bg-white border-bottom-0 d-flex justify-content-between align-items-center pt-3 pb-0">
       <div>
-        <span class="fw-bold">Pedido #{{ pedido.id }}</span>
+        <span class="fw-bold text-primary">Pedido #{{ pedido.id }}</span>
         <span class="text-muted ms-3 small">
           {{ pedido.fecha.strftime('%d/%m/%Y %H:%M') }}
         </span>
@@ -79,25 +79,23 @@
         </div>
 
         <!-- Información de entrega -->
-        <div class="col-md-4">
-          <div class="bg-light rounded p-3 h-100">
-
-            <p class="fw-semibold mb-1">📍 Dirección de entrega</p>
+        <div class="col-md-4 mt-3 mt-md-0">
+          <div class="bg-light rounded p-3 h-100 border-0">
+            <p class="fw-semibold mb-1 text-primary">📍 Dirección de entrega</p>
             <p class="text-muted small mb-3">{{ pedido.direccion }}</p>
 
             {% if pedido.notas %}
-              <p class="fw-semibold mb-1">📝 Notas</p>
+              <p class="fw-semibold mb-1 text-primary">📝 Notas</p>
               <p class="text-muted small mb-0">{{ pedido.notas }}</p>
             {% endif %}
-
           </div>
         </div>
 
       </div>
     </div>
 
-    <!-- Pie del pedido: línea de tiempo del estado -->
-    <div class="card-footer bg-white">
+    <!-- Pie del pedido -->
+    <div class="card-footer bg-white border-top-0 pb-3">
       <div class="d-flex justify-content-between align-items-center">
 
         <!-- Progreso visual del estado -->
@@ -138,12 +136,10 @@
 
         </div>
 
-        <!-- Botón ver confirmación -->
         <a href="{{ url_for('public.confirmacion', id=pedido.id) }}"
-           class="btn btn-outline-secondary btn-sm ms-3">
+           class="btn btn-outline-primary btn-sm ms-3">
           Ver detalle
         </a>
-
       </div>
     </div>
 
@@ -155,7 +151,7 @@
   <!-- Estado vacío -->
   <div class="text-center py-5">
     <div class="display-1 mb-3">📭</div>
-    <h4 class="text-muted">Aún no tienes pedidos</h4>
+    <h4 class="text-primary">Aún no tienes pedidos</h4>
     <p class="text-muted">
       Cuando realices una compra aparecerá aquí el historial completo.
     </p>

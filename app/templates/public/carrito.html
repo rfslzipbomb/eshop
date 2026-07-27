@@ -2,12 +2,12 @@
 {% block title %}Carrito{% endblock %}
 
 {% block content %}
-<h3 class="mb-4">🛒 Mi carrito</h3>
+<h3 class="mb-4 text-primary">🛒 Mi carrito</h3>
 
 {% if items %}
 <div class="table-responsive">
   <table class="table align-middle">
-    <thead class="table-dark">
+    <thead class="table-light">
       <tr>
         <th>Producto</th>
         <th>Precio</th>
@@ -31,7 +31,7 @@
       {% endfor %}
     </tbody>
     <tfoot>
-      <tr class="table-secondary fw-bold">
+      <tr class="table-secondary fw-bold text-primary">
         <td colspan="3" class="text-end">Total:</td>
         <td>${{ "%.2f"|format(total) }}</td>
         <td></td>
@@ -43,14 +43,15 @@
 <div class="d-flex justify-content-between mt-3">
   <a href="{{ url_for('public.vaciar_carrito') }}"
      class="btn btn-outline-secondary">Vaciar carrito</a>
+  <!-- Cambiado a btn-primary para heredar los estilos de SIZ -->
   <a href="{{ url_for('public.pago') }}"
-     class="btn btn-success btn-lg">Proceder al pago →</a>
+     class="btn btn-primary btn-lg">Proceder al pago →</a>
 </div>
 
 {% else %}
 <div class="alert alert-info">
   Tu carrito está vacío.
-  <a href="{{ url_for('public.tienda') }}">Ir a la tienda</a>
+  <a href="{{ url_for('public.tienda') }}" class="text-primary fw-bold">Ir a la tienda</a>
 </div>
 {% endif %}
 {% endblock %}
