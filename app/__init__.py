@@ -1,7 +1,7 @@
 import os
 
-from flask import Flask, session
-from flask_login import LoginManager
+from flask import Flask, session, redirect, url_for, flash, request
+from flask_login import LoginManager, current_user, logout_user
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
@@ -35,6 +35,14 @@ def create_app():
     @login_manager.user_loader
     def load_user(user_id):
         return Usuario.query.get(int(user_id))
+
+    @app.before_request
+    def verificar_usuario_activo():
+        # Si el usuario está autenticado pero fue desactivado, cerramos su sesión
+        if current_user.is_authenticated and not getattr(current_user, 'activo', True):
+            logout_user()
+            flash('Tu cuenta ha sido desactivada. Contacta al administrador.', 'warning')
+            return redirect(url_for('auth.login'))
 
     from app.blueprints.public import public_bp
     from app.blueprints.auth import auth_bp

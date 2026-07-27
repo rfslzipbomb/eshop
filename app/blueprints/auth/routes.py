@@ -44,6 +44,9 @@ def login():
         usuario = Usuario.query.filter_by(email=form.email.data).first()
 
         if usuario and usuario.check_password(form.password.data):
+            if not getattr(usuario, 'activo', True):
+                flash('Esta cuenta ha sido desactivada. Contacta al administrador.', 'warning')
+                return render_template('auth/login.html', form=form)
             login_user(usuario, remember=form.remember.data)
             flash(f'Bienvenido, {usuario.nombre}!', 'success')
 

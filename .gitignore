@@ -22,3 +22,6 @@ instance/
 *.db
 *.sqlite
 *.sqlite3
+
+#Prueba local en red LAN
+.vscode/
