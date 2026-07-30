@@ -15,8 +15,9 @@ class Config:
     db_host = os.getenv('DB_HOST', 'localhost')
     db_name = os.getenv('DB_NAME')
 
-    if database_url:
-        SQLALCHEMY_DATABASE_URI = database_url
+    # Nos aseguramos de que si DATABASE_URL es una cadena vacía "", se trate como None
+    if database_url and database_url.strip():
+        SQLALCHEMY_DATABASE_URI = database_url.strip()
     elif db_user and db_name:
         SQLALCHEMY_DATABASE_URI = (
             f"mysql+pymysql://{db_user}:{db_password}@{db_host}/{db_name}"
@@ -25,5 +26,4 @@ class Config:
         SQLALCHEMY_DATABASE_URI = f"sqlite:///{os.path.join(basedir, '..', 'app.db')}"
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-
     
